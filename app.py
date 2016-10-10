@@ -1,24 +1,20 @@
 import asyncio
-import logging
 import pathlib
 from logging.config import dictConfig
 
 from aiohttp import web
-from aiohttp.log import server_logger
-# from logger import setup_logger
 
 
 from middlewares import setup_middlewares
-from routes import setup_routes
+from routes import router
 from config import conf
 
 PROJ_ROOT = pathlib.Path(__file__).parent
 
 
 async def init(loop):
-    app = web.Application(loop=loop, debug=True)
+    app = web.Application(loop=loop, router=router, debug=True)
 
-    setup_routes(app, PROJ_ROOT)
     setup_middlewares(app)
 
     host, port = conf['HOST'], conf['PORT']
