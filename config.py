@@ -1,11 +1,12 @@
 import logging
+from secret_config import keys
 
 LOGGING_LEVEL=logging.DEBUG
 
 conf = dict(
     HOST='0.0.0.0',
-    PORT='31337',
-
+    PORT='80',
+    KEYS=keys,
     LOGGING_CONF=dict(
             version=1,
             disable_existing_loggers=False,
@@ -31,4 +32,5 @@ conf = dict(
                 'level': LOGGING_LEVEL,
             }
     )
+
 )
