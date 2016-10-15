@@ -93,3 +93,5 @@ ENV/
 .idea/misc.xml
 .idea/modules.xml
 .idea/workspace.xml
+/secret_config.py
+secret_config.py
