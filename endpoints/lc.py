@@ -1,4 +1,4 @@
-# import logging
+import logging
 # from aiohttp import ClientSession
 from aiohttp.web import Request, Response, HTTPNotImplemented
 from aiotg import Bot
@@ -6,6 +6,9 @@ from aiotg import Bot
 # from aiovk.sessions import TokenSession
 # from json import dumps
 from config import conf
+
+def error_log(json: dict):
+    logging.error('Unexpected result in {}'.format(json))
 
 async def lc_callback(request: Request):
     json = await request.json()
@@ -26,6 +29,10 @@ async def lc_callback(request: Request):
                 doc = obj['doc']
                 if doc['ext'] == 'gif':
                     await tg_channel.send_video(doc['url'], text)
+                else:
+                    error_log(json)
+            else:
+                error_log(json)
             # elif obj['type'] == 'video':
             #     video = obj['video']
             #     logging.debug(video)
@@ -45,4 +52,5 @@ async def lc_callback(request: Request):
 
         return Response(text='ok')
     else:
+        error_log(json)
         raise HTTPNotImplemented()
