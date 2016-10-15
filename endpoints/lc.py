@@ -16,6 +16,8 @@ async def lc_callback(request: Request):
         tg_bot = Bot(api_token=conf['KEYS']['LC_BOT_KEY'])
         tg_channel = tg_bot.channel(conf['KEYS']['LC_CHANNEL_NAME'])
         text = json['object'].get('text', '')
+        if text and conf['KEYS']['IS_LC_TEXT_FILTER_ENABLED']:
+            text = text.replace(conf['KEYS']['LC_TEXT_FILTER'])
         for obj in json['object']['attachments']:
             if obj['type'] == 'photo':
                 photo = obj['photo']
