@@ -10,7 +10,7 @@ from config import conf
 def error_log(json: dict):
     logging.error('Unexpected result in {}'.format(json))
 
-async def lc_callback(request: Request):
+async def lc_callback(request: Request) -> Response or HTTPNotImplemented:
     json = await request.json()
     if json['type'] == 'confirmation':
         key = conf['KEYS']['LC_KEY']
@@ -18,9 +18,9 @@ async def lc_callback(request: Request):
     elif json['type'] == 'wall_post_new':
         tg_bot = Bot(api_token=conf['KEYS']['LC_BOT_KEY'])
         tg_channel = tg_bot.channel(conf['KEYS']['LC_CHANNEL_NAME'])
-        text = json['object'].get('text', '')
+        text = json['object'].get('text', '')  # type: str
         if text and conf['KEYS']['IS_LC_TEXT_FILTER_ENABLED']:
-            text = text.replace(conf['KEYS']['LC_TEXT_FILTER'])
+            text = text.replace(conf['KEYS']['LC_TEXT_FILTER'], '')
         for obj in json['object']['attachments']:
             if obj['type'] == 'photo':
                 photo = obj['photo']
