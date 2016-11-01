@@ -93,5 +93,7 @@ ENV/
 .idea/misc.xml
 .idea/modules.xml
 .idea/workspace.xml
-/secret_config.py
-secret_config.py
+/vktotelegramreposter/secret_config.py
+.idea/deployment.xml
+.idea/vagrant.xml
+.idea/webServers.xml
